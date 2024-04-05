@@ -1,0 +1,23 @@
+<section class="container">
+    <h2 class="title">
+        Ingresar
+    </h2>
+
+    <form class="form-container" [formGroup]="loginForm" (ngSubmit)="handleSubmit()">
+
+        <label for="email">
+            Email: <input  class="custom-input" id="email" type="email" formControlName="email">
+            @if (loginForm.controls['email'].errors) {
+            <div class="validation-class">Campo requerido</div>
+            }
+        </label>
+       
+        <label for="password">
+            Contraseña: <input  class="custom-input" type="password" formControlName="password">
+            @if (loginForm.controls['password'].errors) {
+            <div class="validation-class">Campo requerido</div>
+            }
+        </label>
+        <button type="submit" [disabled]="!loginForm.valid">Ingresar</button>
+    </form>
+</section>

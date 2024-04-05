@@ -1,0 +1,22 @@
+<section class="container">
+    <h2 class="title">
+        Registrar historia clinica
+    </h2>
+
+    <form class="form-container" [formGroup]="registerPersonalDiagnosisForm" (ngSubmit)="handleSubmit()">
+        <label for="diagnosis">
+            Diagnostico:
+            <input class="custom-input" id="diagnosis" type="text" formControlName="diagnosis">
+            @if (registerPersonalDiagnosisForm.controls['diagnosis'].errors) {
+            <div class="validation-class">Campo requerido</div>
+            }
+        </label>
+        <label for="cie10">
+            Cie10: <input  class="custom-input" id="cie10" type="text" formControlName="cie10">
+            @if (registerPersonalDiagnosisForm.controls['cie10'].errors) {
+            <div class="validation-class">Campo requerido</div>
+            }
+        </label>
+        <button type="submit" [disabled]="!registerPersonalDiagnosisForm.valid">Registrar</button>
+    </form>
+</section>

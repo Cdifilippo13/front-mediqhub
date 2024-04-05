@@ -1,0 +1,48 @@
+<section class="section-calendar">
+    <p class="title">Selecciona una fecha y hora</p>
+    <div class="container">
+        <div>
+            <article class="header-calendar">
+                <div>{{nameOfCurrentMonth}} {{currentYear}}</div>
+                <div>
+                    <button class="button-calendar" type="button" (click)="backMonth()">{{'<'}} </button>
+                            <button class="button-calendar" type="button" (click)="nextMonth()">></button>
+                </div>
+            </article>
+            <section>
+                <div class="name-days">
+                    @for (item of daysOfWeek; track item) {
+                    <span class="month-title">{{ item }}</span>
+                    }
+                </div>
+
+                <div class="calendar-days">
+                    @for (item of arraydaysOfTheCurrentMonth; track $index) {
+                    @if (item) {
+                    <div class="days" (click)="selectDay(item.consecutive, item.indexDay)">{{item.consecutive}}</div>
+                    }@else {
+                    <div></div>
+                    }
+
+                    }
+                </div>
+            </section>
+            
+        </div>
+        <div class="">
+           @if (currentDay
+           ) {
+            <span>{{dayName}},{{currentDay}} </span>
+            <div class="card-hour-container">
+                @for (item of initialHour; track $index) {
+                    <div class="card-hour">
+                        <p>{{initialHour[$index]}}:00am</p>
+                        <p>disponible</p>
+                        <button type="button" class="button-card" (click)="getDateAndHour(initialHour[$index])">Agendar</button>
+                    </div>
+                }
+            </div>
+           }
+        </div>
+    </div>
+</section>

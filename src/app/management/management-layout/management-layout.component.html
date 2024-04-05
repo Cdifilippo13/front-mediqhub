@@ -1,0 +1,27 @@
+<section class="management-layout">
+    <nav class="aside-menu">
+        <a class="logo" href="/">
+            <img src="assets/img/MediQHub-2.svg" alt="">
+        </a>
+        <ul>
+            <li>
+                <button type="button" class="button-list" (click)="goTo('management/personal-diagnosis')">
+                    <span>Historia Medica</span>
+                </button>
+            </li>
+            <li>
+                <button type="button" class="button-list" (click)="goTo('management/appointment-schedule')" >
+                    <span>Agendar citas</span>
+                </button>
+            </li>
+            <li>
+                <button type="button" class="button-list" (click)="goTo('management/check-appointment')">
+                    <span>Revisar citas</span>
+                </button>
+            </li>
+        </ul>
+    </nav>
+    <section class="section-width">
+        <router-outlet />
+    </section>
+</section>

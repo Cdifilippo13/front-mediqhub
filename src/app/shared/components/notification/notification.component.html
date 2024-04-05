@@ -1,0 +1,6 @@
+@if (notificationService.show) {
+    <aside class="notification" [ngClass]="type != 'normal' ? 'success' : ''">
+        <span (click)="closeNotification()" class="close">x</span>
+        {{message}}
+    </aside>
+}

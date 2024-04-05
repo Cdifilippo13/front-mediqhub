@@ -1,0 +1,33 @@
+<section class="container">
+    <section class="form-section">
+        <h2 class="title">
+            Agendar cita
+        </h2>
+
+        <form class="form-container" [formGroup]="appointmentForm" (ngSubmit)="handleSubmit()">
+            <label for="date">
+                Fecha: <input class="custom-input" id="date" type="text" formControlName="date">
+                @if (appointmentForm.controls['date'].errors) {
+                <div class="validation-class">Campo requerido</div>
+                }
+            </label>
+            <label for="doctor">
+                Doctor: <select class="custom-input" name="doctor" id="doctor" formControlName="doctor">
+                    <option value="" selected>Seleccione...</option>
+                    @for (item of doctors; track $index) {
+                        <option value={{item.id}} >{{item.value}}</option>
+                    }
+                </select>
+                @if (appointmentForm.controls['doctor'].errors) {
+                <div class="validation-class">Campo requerido</div>
+                }
+            </label>
+
+
+            <button type="submit" [disabled]="!appointmentForm.valid">Crear cita</button>
+        </form>
+    </section>
+    <section>
+        <app-calendar (dateAppointment)="dateAppointmentEvent($event)" ></app-calendar>
+    </section>
+</section>

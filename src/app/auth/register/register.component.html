@@ -1,0 +1,46 @@
+<section class="container">
+    <h2 class="title">
+        Registrarte
+    </h2>
+
+    <form class="form-container" [formGroup]="registerForm" (ngSubmit)="handleSubmit()">
+        <label for="name">
+            Nombre:
+            <input class="custom-input" id="name" type="text" formControlName="name">
+            @if (registerForm.controls['name'].errors) {
+            <div class="validation-class">Campo requerido</div>
+            }
+        </label>
+        <label for="email">
+            Email: <input  class="custom-input" id="email" type="email" formControlName="email">
+            @if (registerForm.controls['email'].errors) {
+            <div class="validation-class">Campo requerido</div>
+            }
+        </label>
+        <label for="type">
+            Tipo: <select class="custom-input" name="type" id="type" formControlName="type">
+                <option value="" selected>Seleccione...</option>
+                <option value="1">Medico</option>
+                <option value="2">Paciente</option>
+            </select>
+            @if (registerForm.controls['type'].errors) {
+            <div class="validation-class">Campo requerido</div>
+            }
+        </label>
+        @if (registerForm.get('type')?.value == '1') {
+        <label for="specialty">
+            Especialidad: <input  class="custom-input"  type="text" formControlName="specialty">
+            @if (registerForm.controls['specialty'].errors) {
+            <div class="validation-class">Campo requerido</div>
+            }
+        </label>
+        }
+        <label for="password">
+            Contraseña: <input  class="custom-input" type="password" formControlName="password">
+            @if (registerForm.controls['password'].errors) {
+            <div class="validation-class">Campo requerido</div>
+            }
+        </label>
+        <button type="submit" [disabled]="!registerForm.valid">Registrarse</button>
+    </form>
+</section>

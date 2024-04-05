@@ -1,0 +1,25 @@
+<section class="container">
+    <article class="appointment-card">
+        <p class="title-text">Fecha: <span>2019023</span></p>
+        <p class="title-text">Paciente: <span>James</span></p>
+        <p class="title-text">Estado: </p>
+        <div class="container-button">
+            <button type="button" class="button-appointment-card">Editar</button>
+        </div>
+    </article>
+    <article>
+        <form class="form-appointment-container" [formGroup]="editAppointmentForm" (ngSubmit)="handleSubmit()">
+            <label for="newState">
+                Nuevo estado: <select class="custom-input" name="newState" id="newState" formControlName="newState">
+                    <option value="" selected>Seleccione...</option>
+                    <option value="1">Medico</option>
+                    <option value="2">Paciente</option>
+                </select>
+                @if (editAppointmentForm.controls['newState'].errors) {
+                <div class="validation-class">Campo requerido</div>
+                }
+            </label>
+            <button type="submit" class="button-edit-card" [disabled]="!editAppointmentForm.valid">Finalizar</button>
+        </form>
+    </article>
+</section>
