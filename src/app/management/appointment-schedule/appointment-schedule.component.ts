@@ -107,7 +107,7 @@ export class AppointmentScheduleComponent implements OnInit {
       complete: () => {
         console.log('Termino el consumo');
 
-        
+        this.notificationService.closeNotification()
 
       }
     });

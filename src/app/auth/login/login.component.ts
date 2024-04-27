@@ -29,34 +29,43 @@ export class LoginComponent {
   )
 
   handleSubmit() {
-    this.loginService.login(this.loginForm.value).subscribe(res => {
+    this.loginService.login(this.loginForm.value).subscribe(
+      {
 
-      console.log(res);
+        next: (value) => {
+          if (value.status === 200) {
+            let user: User;
+
+            user = {
+              email: value.data.email,
+              name: value.data.name,
+              type: value.data.type,
+              id: value.data.id
+            }
+
+            this.userService.setUser(user);
+            this.notificationService.buildNotification('Autotizado', 'success')
+            this.notificationService.showNotification();
 
 
-      if (res.status === 200) {
-        let user: User;
+            this.ngZone.run(() => {
+              this.router.navigateByUrl('/management')
+            });
+            console.log(value)
+          }
+        },
+        error: (err) => {
+          console.log(err)
+        },
+        complete: () => {
+          console.log('Termino el consumo');
 
-        user = {
-          email: res.data.email,
-          name: res.data.name,
-          type: res.data.type,
-          id: res.data.id
+         setTimeout(() => {
+          this.notificationService.closeNotification()
+         }, 3000)
+
         }
-
-        this.userService.setUser(user);
-        this.notificationService.buildNotification('Autotizado', 'success')
-        this.notificationService.showNotification();
-
-
-        this.ngZone.run(() => {
-          this.router.navigateByUrl('/management')
-        });
-
-
       }
-
-    }
     )
   }
 
