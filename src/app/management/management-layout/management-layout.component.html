@@ -9,11 +9,13 @@
                     <span>Historia Medica</span>
                 </button>
             </li>
-            <li>
-                <button type="button" class="button-list" (click)="goTo('management/appointment-schedule')" >
-                    <span>Agendar citas</span>
-                </button>
-            </li>
+            @if(showAppointmentSchedule){
+                <li>
+                    <button type="button" class="button-list" (click)="goTo('management/appointment-schedule')" >
+                        <span>Agendar citas</span>
+                    </button>
+                </li>
+            }
             <li>
                 <button type="button" class="button-list" (click)="goTo('management/check-appointment')">
                     <span>Revisar citas</span>

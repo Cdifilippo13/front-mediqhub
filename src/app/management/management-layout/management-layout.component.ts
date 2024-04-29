@@ -1,5 +1,7 @@
-import { Component, NgZone } from '@angular/core';
+import { Component, NgZone, OnInit, inject } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
+import { UserService } from '../../core/services/user.service';
+import { User } from '../../core/models/user';
 
 @Component({
   selector: 'app-management-layout',
@@ -8,18 +10,26 @@ import { Router, RouterOutlet } from '@angular/router';
   templateUrl: './management-layout.component.html',
   styleUrl: './management-layout.component.sass'
 })
-export class ManagementLayoutComponent {
+export class ManagementLayoutComponent implements OnInit{
+
+  userService = inject(UserService);
+  showAppointmentSchedule: boolean = false;
+  
 
   constructor(private ngZone: NgZone, private router: Router) { }
 
-  goTo(route: string) {
+  ngOnInit(){
+    const user: User = this.userService.getterUser;
+    if(user.type === 1) return; 
+    this.showAppointmentSchedule = true;
+  }
 
-    console.log('hola');
-    
+  goTo(route: string) {
     this.ngZone.run(() => {
       this.router.navigateByUrl(route)
     });
   }
+
 
 
 }
