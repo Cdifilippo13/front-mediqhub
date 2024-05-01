@@ -1,22 +1,73 @@
 <section class="container">
-    <h2 class="title">
-        Registrar historia clinica
-    </h2>
+  
+  @if( userService.getterUser.type === 1){
+    <h2 class="title">Registrar historia clinica</h2>
+  <form
+    class="form-container"
+    [formGroup]="registerPersonalDiagnosisForm"
+    (ngSubmit)="handleSubmit()"
+  >
+    <label for="diagnosis">
+      Diagnostico:
+      <input
+        class="custom-input"
+        id="diagnosis"
+        type="text"
+        formControlName="diagnosis"
+      />
+      @if (registerPersonalDiagnosisForm.controls['diagnosis'].errors) {
+      <div class="validation-class">Campo requerido</div>
+      }
+    </label>
+    <label for="cie10">
+      Cie10:
+      <input
+        class="custom-input"
+        id="cie10"
+        type="text"
+        formControlName="cie10"
+      />
 
-    <form class="form-container" [formGroup]="registerPersonalDiagnosisForm" (ngSubmit)="handleSubmit()">
-        <label for="diagnosis">
-            Diagnostico:
-            <input class="custom-input" id="diagnosis" type="text" formControlName="diagnosis">
-            @if (registerPersonalDiagnosisForm.controls['diagnosis'].errors) {
-            <div class="validation-class">Campo requerido</div>
-            }
-        </label>
-        <label for="cie10">
-            Cie10: <input  class="custom-input" id="cie10" type="text" formControlName="cie10">
-            @if (registerPersonalDiagnosisForm.controls['cie10'].errors) {
-            <div class="validation-class">Campo requerido</div>
-            }
-        </label>
-        <button type="submit" [disabled]="!registerPersonalDiagnosisForm.valid">Registrar</button>
-    </form>
+      @if (codeNotExist) {
+      <div class="validation-class">El código no existe.</div>
+      } @if (registerPersonalDiagnosisForm.controls['cie10'].errors) {
+      <div class="validation-class">Campo requerido</div>
+      }
+    </label>
+
+    <label for="patient">
+      paciente:
+      <select
+        class="custom-input"
+        name="patient"
+        id="patient"
+        formControlName="patient"
+      >
+        <option value="" selected>Seleccione...</option>
+        @for (item of patients; track $index) {
+        <option value="{{ item.id }}">{{ item.name }}</option>
+        }
+      </select>
+      @if (registerPersonalDiagnosisForm.controls['patient'].errors) {
+      <div class="validation-class">Campo requerido</div>
+      }
+    </label>
+
+    <button type="submit" [disabled]="!registerPersonalDiagnosisForm.valid">
+      Registrar
+    </button>
+  </form>
+  } @else {
+    <h2 class="title">Historia clínica</h2>
+
+  <span>
+    <strong> Diagnostico: </strong>
+    {{ this.registerPersonalDiagnosisForm.get("diagnosis")?.value }}</span
+  >
+  <span>
+    <strong> Cie10: </strong>
+    {{ this.registerPersonalDiagnosisForm.get("cie10")?.value }}</span
+  >
+
+  }
 </section>

@@ -44,7 +44,7 @@ export class LoginComponent {
             }
 
             this.userService.setUser(user);
-            this.notificationService.buildNotification('Autotizado', 'success')
+            this.notificationService.buildNotification('Autorizado', 'success')
             this.notificationService.showNotification();
 
 

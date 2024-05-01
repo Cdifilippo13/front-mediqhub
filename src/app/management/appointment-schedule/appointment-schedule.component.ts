@@ -1,9 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, NgZone } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CalendarComponent } from '../../shared/components/calendar/calendar.component';
 import { AppointmentService } from '../../core/services/appointment-service.service';
 import { UserService } from '../../core/services/user.service';
 import { NotificationService } from '../../core/services/notification.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-appointment-schedule',
@@ -14,18 +15,24 @@ import { NotificationService } from '../../core/services/notification.service';
 })
 export class AppointmentScheduleComponent implements OnInit {
 
+  
   doctors: any = []
-
   dateAppointment: Date = new Date()
-
-
-  ngOnInit() {
-    this.getDoctors();
-  }
-
   appointmentService = inject(AppointmentService);
   userService = inject(UserService);
   notificationService = inject(NotificationService);
+
+  constructor(private ngZone: NgZone, private router: Router){}
+
+  ngOnInit() {
+    this.getDoctors();
+    if( this.userService.getterUser.type === 1) {
+      this.ngZone.run(() => {
+        this.router.navigateByUrl('/management/personal-diagnosis')
+      });
+    }
+  }
+
 
 
 
@@ -106,9 +113,7 @@ export class AppointmentScheduleComponent implements OnInit {
       },
       complete: () => {
         console.log('Termino el consumo');
-
         this.notificationService.closeNotification()
-
       }
     });
 
