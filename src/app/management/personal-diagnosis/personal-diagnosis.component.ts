@@ -42,6 +42,9 @@ export class PersonalDiagnosisComponent {
       },
     });
 
+    console.log(this.userService.getterUser);
+    
+
     if (this.userService.getterUser.type === 2) {
       this.personalDiagnosisService.getPersonalDiagnosisByUserId( this.userService.getterUser.email )
       .subscribe({
@@ -61,7 +64,20 @@ export class PersonalDiagnosisComponent {
     const codeSended = this.registerPersonalDiagnosisForm.get('cie10')?.value;
     if (!codeSended) return;
 
-    const codeExists = cie10List.some((cie10) => {
+    console.log(codeSended);
+
+
+    
+    const codeExists = cie10List.find((cie10) => cie10.code === codeSended);
+
+/*   const codeExists = cie10List.some((cie10) => {
+
+
+
+
+      cie10.code === codeSended
+
+      
       let searchIndex = 0;
       for (let i = 0; i < cie10.code.length; i++) {
         if (cie10.code[i] === codeSended[searchIndex]) {
@@ -76,8 +92,11 @@ export class PersonalDiagnosisComponent {
           }
         }
       }
-      return false;
-    });
+      return false; 
+    }); */
+ 
+    console.log(codeExists);
+    
 
     if (!codeExists) {
       this.codeNotExist = true;
