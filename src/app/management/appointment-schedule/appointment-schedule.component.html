@@ -1,30 +1,38 @@
 <section class="container">
-    <section class="form-section">
-        <h2 class="title">
+    <section class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+        <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
             Agendar cita
         </h2>
 
-        <form class="form-container" [formGroup]="appointmentForm" (ngSubmit)="handleSubmit()">
-            <label for="date">
-                Fecha: <input class="custom-input" id="date" type="text" formControlName="date">
-                @if (appointmentForm.controls['date'].errors) {
-                <div class="validation-class">Campo requerido</div>
-                }
-            </label>
-            <label for="doctor">
-                Doctor: <select class="custom-input" name="doctor" id="doctor" formControlName="doctor">
+        <form class="space-y-4 md:space-y-6" [formGroup]="appointmentForm" (ngSubmit)="handleSubmit()">
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="date">
+                    Fecha: 
+                </label>
+                <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="date" type="text" formControlName="date">
+                    @if (appointmentForm.controls['date'].errors) {
+                        <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" >Campo requerido</div>
+                    }
+            </div>
+            <div>
+
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="doctor">
+                    Doctor: 
+                </label>
+                <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  name="doctor" id="doctor" formControlName="doctor">
                     <option value="" selected>Seleccione...</option>
                     @for (item of doctors; track $index) {
                         <option value={{item.id}} >{{item.value}}</option>
                     }
                 </select>
                 @if (appointmentForm.controls['doctor'].errors) {
-                <div class="validation-class">Campo requerido</div>
+                    <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" >Campo requerido</div>
                 }
-            </label>
+            </div>
 
 
-            <button type="submit" [disabled]="!appointmentForm.valid">Crear cita</button>
+
+            <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="submit" [disabled]="!appointmentForm.valid">Crear cita</button>
         </form>
     </section>
     <section>

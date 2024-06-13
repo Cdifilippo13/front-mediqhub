@@ -1,71 +1,79 @@
-<section class="container">
+<section
+  class="w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+  <div class="flex items-center justify-between mb-4">
+    <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Ultimas citas</h5>
+    <a href="#" class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">
+      Todas
+    </a>
+  </div>
   @if( data.appointments.length > 0){
-  <div class="appointment-container">
-    @for (appointment of data.appointments; track $index) {
-    <div class="appointment-articles">
-      <article class="appointment-card">
-        <p class="title-text">
-          Fecha: <span>{{ appointment.citation }}</span>
-        </p>
-        <p class="title-text">
-          @if(userService.getterUser.type === 1){ Paciente:
-          <span>{{ appointment.patient.name }}</span> } @else { Doctor:
-          <span>{{ appointment.doctor.name }}</span>
-          }
-        </p>
-        <p class="title-text">Estado: {{ handleStatus(appointment.state) }}</p>
-        <div class="container-button">
-          <button
-            type="button"
-            (click)="handleEdit(appointment)"
-            class="button-appointment-card"
-          >
-            Editar
-          </button>
-        </div>
-      </article>
+  <div class="flow-root">
+    <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+      @for (appointment of data.appointments; track $index) {
+      <li class="py-3 sm:py-4">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <img class="w-8 h-8 rounded-full"
+              src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1760&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt="Neil image">
+          </div>
+          <div class="flex-1 min-w-0 ms-4">
+            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+              Fecha: <span>{{ appointment.citation }}</span>
+            </p>
+            <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+              @if(userService.getterUser.type === 1){ Paciente:
+              <span>{{ appointment.patient.name }}</span> } @else { Doctor:
+              <span>{{ appointment.doctor.name }}</span>
+              }
+            </p>
+            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+              Estado: {{ handleStatus(appointment.state) }}
+            </p>
+          </div>
 
-      <article>
-        @if(appointmentEditing === appointment){
-        <form
-          class="form-appointment-container"
-          [formGroup]="editAppointmentForm"
-          (ngSubmit)="handleSubmit()"
-        >
-          <label for="newState">
-            Nuevo estado:
-            <select
-              class="custom-input"
-              name="newState"
-              id="newState"
-              formControlName="newState"
-            >
+          <div class="container-button">
+            <button
+              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              type="button" (click)="handleEdit(appointment)">Editar</button>
+          </div>
+        </div>
+      </li>
+      }
+
+    </ul>
+    @for (appointment of data.appointments; track $index) {
+
+    <article>
+      @if(appointmentEditing === appointment){
+      <form class="space-y-4 md:space-y-6" [formGroup]="editAppointmentForm" (ngSubmit)="handleSubmit()">
+        <div>
+          <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="newState">
+            Nuevo estado: 
+          </label>
+          <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="newState" id="newState" formControlName="newState">
             <option value="" selected>Seleccione...</option>
             @if(userService.getterUser.type === 2){
-              <option value="4">CANCELADA</option>
+            <option value="4">CANCELADA</option>
             }
             @else {
-              <option value="4">CANCELADA</option>
-              <option value="1">PENDIENTE</option>
-              <option value="2">RECHAZADA</option>
-              <option value="3">ACEPTADA</option>
+            <option value="4">CANCELADA</option>
+            <option value="1">PENDIENTE</option>
+            <option value="2">RECHAZADA</option>
+            <option value="3">ACEPTADA</option>
             }
-            </select>
-            @if (editAppointmentForm.controls['newState'].errors) {
-            <div class="validation-class">Campo requerido</div>
-            }
-          </label>
-          <button
-            type="submit"
-            class="button-edit-card"
-            [disabled]="!editAppointmentForm.valid"
-          >
-            Finalizar
-          </button>
-        </form>
-        }
-      </article>
-    </div>
+          </select>
+          @if (editAppointmentForm.controls['newState'].errors) {
+            <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" >Campo requerido</div>
+          }
+        </div>
+        <button  type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" [disabled]="!editAppointmentForm.valid">
+          Finalizar
+        </button>
+      </form>
+      }
+    </article>
+
 
     }
   </div>
